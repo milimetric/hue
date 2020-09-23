@@ -46,6 +46,13 @@ SERVER_PORT = Config(
   default=21050,
   type=int)
 
+PROXY_ENDPOINT = Config(
+  key="proxy_endpoint",
+  help=_t("Endpoint of the Impala Proxy Server, "
+          "for example: '/endpoint'. Note that SERVER_PORT will be used when set."),
+  type=str,
+  default="")
+
 COORDINATOR_URL = Config(
   key="coordinator_url",
   help=_t("URL of the Impala Coordinator Server."),

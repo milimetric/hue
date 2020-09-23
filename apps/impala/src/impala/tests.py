@@ -521,6 +521,25 @@ def test_thrift_over_http_config():
         reset()
 
 
+def test_thrift_over_http_config_with_proxy_endpoint():
+  resets = [
+      conf.SERVER_HOST.set_for_testing('impala_proxy'),
+      conf.SERVER_PORT.set_for_testing(36000),
+      conf.USE_THRIFT_HTTP.set_for_testing(True),
+      conf.PROXY_ENDPOINT.set_for_testing('/endpoint')
+  ]
+  with patch('impala.dbms.get_hs2_http_port') as get_hs2_http_port:
+    get_hs2_http_port.return_value = 30000
+    try:
+      query_server = get_query_server_config(name='impala')
+      assert_equal(query_server['server_port'], 36000)
+      assert_equal(query_server['transport_mode'], 'http')
+      assert_equal(query_server['http_url'], 'http://impala_proxy:36000/endpoint')
+    finally:
+      for reset in resets:
+        reset()
+
+
 class TestImpalaDbms(object):
 
   def test_get_impala_nested_select(self):
