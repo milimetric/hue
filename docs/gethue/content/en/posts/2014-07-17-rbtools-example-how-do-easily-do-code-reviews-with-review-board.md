@@ -50,7 +50,7 @@ Here is a tutorial about how to use the code review tool [Review Board](https://
 
 Hue project uses Review Board and Pull Requests for code reviews. For more complex patches it's advisable to use RB than a plain pull request on github. The advantage of Pull Request is that the CI (syntax check, tests…) automatically runs for you. Along with the web app, a command line tool named RBTool is used to make things easier.
 
-Create accounts in https://review.cloudera.org, https://issues.cloudera.org/browse/HUE and https://github.com and share the usernames
+Create accounts in [Review Board](https://review.cloudera.org), [Bug Tracker](https://issues.cloudera.org/browse/HUE) and [GitHub](https://github.com) and share the usernames
 
 Then, join the 'hue' group in your account https://review.cloudera.org/account/preferences/#groups
 

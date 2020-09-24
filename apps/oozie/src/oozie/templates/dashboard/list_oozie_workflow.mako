@@ -674,12 +674,15 @@ ${ dashboard.import_layout() }
           }));
           % if layout_json != '':
           ko.utils.arrayForEach(actionsViewModel.actions(), function(action) {
-            var _w, actionId = action.id.substr(action.id.length - 4);
+            var _w,
+                actionId = action.id.substr(action.id.length - 4),
+                widgetSelector = "[id^=wdg_" + $.escapeSelector(actionId.toLowerCase()) + "]";
+
             if (actionId === '@End'){
               _w = viewModel.getWidgetById('33430f0f-ebfa-c3ec-f237-3e77efa03d0a');
             }
             else {
-              _w = viewModel.getWidgetById($("[id^=wdg_" + actionId.toLowerCase() + "]").attr("id").substr(4));
+              _w = viewModel.getWidgetById($(widgetSelector).attr("id").substr(4));
             }
             if (_w != null) {
               if (['SUCCEEDED', 'OK', 'DONE'].indexOf(action.status) > -1) {

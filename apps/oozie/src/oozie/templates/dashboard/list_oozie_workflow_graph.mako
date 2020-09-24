@@ -82,14 +82,16 @@ ${ dashboard.import_layout() }
             if (data.actions) {
               % if layout_json != '':
                 ko.utils.arrayForEach(data.actions, function (action) {
-                  var _w, actionId = action.id.substr(action.id.lastIndexOf('@'));
-                  if (actionId === '@End') {
+                  var _w, actionId = action.id.substr(action.id.lastIndexOf('@') + 1);
+                  if (actionId === 'End') {
                     _w = viewModel.getWidgetById('33430f0f-ebfa-c3ec-f237-3e77efa03d0a');
                   }
                   else {
-                    var actionName = actionId.toLowerCase().substr(actionId.lastIndexOf('-') + 1)
-                    if ($("[id^=wdg_" + actionName + "]").length > 0) {
-                      _w = viewModel.getWidgetById($("[id^=wdg_" + actionName + "]").attr("id").substr(4));
+                    var actionName = actionId.toLowerCase().substr(actionId.lastIndexOf('-') + 1),
+                        widgetSelector = "[id^=wdg_" + $.escapeSelector(actionName) + "]";
+
+                    if ($(widgetSelector).length > 0) {
+                      _w = viewModel.getWidgetById($(widgetSelector).attr("id").substr(4));
                     }
                     else {
                       _w = viewModel.getWidgetById('33430f0f-ebfa-c3ec-f237-3e77efa03d0a');
